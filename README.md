@@ -14,7 +14,7 @@ Vue app that shows random movies to users. It is simplified version of my [react
 
 ## Live Demo
 
-`TBA`
+https://random-movies-vue.vercel.app/
 
 ## To Run Locally
 
