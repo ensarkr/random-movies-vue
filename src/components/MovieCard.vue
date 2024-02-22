@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { movieDetailT } from '@/typings/tmdb';
 
-
 const { isItCurrent, movieDetails } = defineProps<{
   movieDetails: movieDetailT & { status: "loaded"; color: string };
   isItCurrent: boolean;
@@ -19,15 +18,10 @@ const getCurrentVideoLink = () => {
   }
 };
 
-const bottomBorderStyle = isItCurrent
-  ? { borderBottom: `1px solid ${movieDetails.color}` }
-  : {};
-
-
 </script>
 
 <template>
-  <div class=main>
+  <div class=movieCard>
     <div class=header>
       <img class=image :src="`https://image.tmdb.org/t/p/w500/${movieDetails.posterPath}`" />
       <div class=titles>
@@ -63,13 +57,13 @@ const bottomBorderStyle = isItCurrent
     </div>
     <div class=body>
       <span v-if="movieDetails.overview !== null && movieDetails.overview.length > 0">
-        <h2 class=subTitle :style="bottomBorderStyle">
+        <h2 class=subTitle :style="isItCurrent ? { borderBottom: `1px solid ${movieDetails.color}` } : {}">
           Overview
         </h2>
         <p class=text>{{ movieDetails.overview }}</p>
       </span>
       <span v-if="movieDetails.videos.length > 0">
-        <h2 class=subTitle style="bottomBorderStyle">
+        <h2 class=subTitle style="isItCurrent ? { borderBottom: `1px solid ${movieDetails.color}` }: {}">
           Trailer
         </h2>
         <div class=trailer>
@@ -78,7 +72,7 @@ const bottomBorderStyle = isItCurrent
         </div>
       </span>
       <span v-if="movieDetails.cast.length > 0">
-        <h2 class=subTitle} :style="bottomBorderStyle">
+        <h2 class=subTitle} :style="isItCurrent ? { borderBottom: `1px solid ${movieDetails.color}` } : {}">
           Cast
         </h2>
         <ul>
@@ -98,15 +92,12 @@ const bottomBorderStyle = isItCurrent
 </template>
 
 <style scoped>
-.main {
+.movieCard {
   box-sizing: border-box;
   padding: 15px;
   overflow: hidden;
 
-  display: flex;
-  align-items: flex-start;
-  width: 100%;
-  flex-direction: column;
+  display: block;
 }
 
 
