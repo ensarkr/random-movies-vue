@@ -13,15 +13,16 @@ function getElementStyle(
     borderColor: string
 ): CSSProperties {
     const dif = currentCardIndex - elementsIndex;
-    const elementShift = 45;
+    const elementShift = 15;
     const elementTop = 15;
-    const scaleRatio = 16;
+    const scaleRatio = 14;
 
     if (dif > 0) {
         return {
             userSelect: "none",
             pointerEvents: "none",
             borderColor: "black",
+            transformOrigin: "top left",
             zIndex: -dif * 2,
             transform: `translate3d(calc(-${elementsIndex} * var(--movie-card-width) + ${-dif * elementShift}px ), ${dif * elementTop}px, 0px) rotateZ(0deg) scale(${1 - dif / scaleRatio})`,
         };
@@ -33,6 +34,7 @@ function getElementStyle(
             pointerEvents: "none",
             borderColor,
             zIndex: dif * 2 - 50,
+            transformOrigin: "top right",
             transform: `translate3d(calc(-${elementsIndex} * var(--movie-card-width) + ${-dif * elementShift}px ), ${-dif * elementTop}px, 0px) rotateZ(0deg) scale(${1 + dif / scaleRatio})`,
         };
     }
