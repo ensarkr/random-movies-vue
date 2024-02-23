@@ -63,7 +63,7 @@ const getCurrentVideoLink = () => {
         <p class=text>{{ movieDetails.overview }}</p>
       </span>
       <span v-if="movieDetails.videos.length > 0">
-        <h2 class=subTitle style="isItCurrent ? { borderBottom: `1px solid ${movieDetails.color}` }: {}">
+        <h2 class=subTitle :style="isItCurrent ? { borderBottom: `1px solid ${movieDetails.color}` }: {}">
           Trailer
         </h2>
         <div class=trailer>

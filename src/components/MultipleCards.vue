@@ -15,7 +15,7 @@ function getElementStyle(
     const dif = currentCardIndex - elementsIndex;
     const elementShift = 15;
     const elementTop = 15;
-    const scaleRatio = 14;
+    const scaleRatio = 15;
 
     if (dif > 0) {
         return {
