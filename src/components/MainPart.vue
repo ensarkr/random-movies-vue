@@ -6,7 +6,7 @@ import { getRandomColor } from "../functions/randomColor";
 import { requestTenRandomMovie } from "../functions/requests"
 import type { snackbarItemT } from "@/context/SnackbarProvider.vue";
 
-const cards = ref<cardTypesT[]>([])
+const cards = ref<cardTypesT[]>([{ status: 'loadingMovies', color: getRandomColor('white') }])
 const currentCardIndex = ref<number>(0)
 const fetchStatus = ref<"loading" | "error" | "functional">("loading")
 
@@ -16,11 +16,14 @@ const fetchAndSetMovies = async () => {
     currentCardIndex.value = 0;
 
     fetchStatus.value = "loading";
+    cards.value = [{ status: 'loadingMovies', color: getRandomColor('white') }]
+
 
     const res = await requestTenRandomMovie();
 
     if (!res.status) {
         fetchStatus.value = "error";
+        cards.value = [{ status: 'retry', color: getRandomColor('white') }]
 
         if (addSnackbarItem !== undefined)
             addSnackbarItem({
@@ -62,8 +65,7 @@ onMounted(() => {
 <template>
     <main>
         <MultipleCards @nextCard="nextCard" @previousCard="previousCard" @loadMovies="fetchAndSetMovies"
-            :currentCardIndex="currentCardIndex"
-            :cards="fetchStatus === 'error' ? [{ status: 'retry', color: getRandomColor('white') }] : fetchStatus === 'loading' ? [{ status: 'loadingMovies', color: getRandomColor('white') }] : cards">
+            :currentCardIndex="currentCardIndex" :cards="cards">
         </MultipleCards>
     </main>
 </template>
